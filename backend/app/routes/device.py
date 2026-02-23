@@ -12,6 +12,19 @@ router = APIRouter(prefix="/device", tags=["device"])
 def get_current_time():
     return datetime.now(timezone.utc).isoformat()
 
+def get_device_owner_phone(device_id: str, default_phone: str = "+11234567890") -> str:
+    from app.services.firebase_service import get_db
+    try:
+        db = get_db()
+        owner_uid = db.reference(f'devices/{device_id}/owner_uid').get()
+        if owner_uid:
+            user_phone = db.reference(f'users/{owner_uid}/phoneNumber').get()
+            if user_phone:
+                return user_phone
+    except Exception as e:
+        print(f"Error fetching phone string: {e}")
+    return default_phone
+
 @router.post("/sensor-data")
 async def ingest_sensor_data(payload: DevicePayload):
     try:
@@ -58,7 +71,8 @@ async def ingest_sensor_data(payload: DevicePayload):
             }
             db.reference(f'devices/{device_id}/alerts/{alert_id}').set(alert_payload)
             # In production, check user preferences and device tokens to send actual push/sms
-            send_sms("+11234567890", f"URGENT: {alert_msg}")
+            phone_number = get_device_owner_phone(device_id)
+            send_sms(phone_number, f"URGENT: {alert_msg}")
 
         # 4. Compute Health Score
         # For simplicity, calculate a dummy stagnation hours (e.g. 5 hours) or fetch true time difference
@@ -88,7 +102,8 @@ async def ingest_sensor_data(payload: DevicePayload):
             system_state_ref.update({"valve": "OPEN", "forensic_report": None})
 
         if health_result["status"] == "Unsafe":
-             send_sms("+11234567890", f"ALERT: Water is UNSAFE. Score {health_result['score']}. {health_result['risk_reason']}")
+             phone_number = get_device_owner_phone(device_id)
+             send_sms(phone_number, f"ALERT: Water is UNSAFE. Score {health_result['score']}. {health_result['risk_reason']}")
 
         return {"status": "success", "health_score": health_result}
     except Exception as e:

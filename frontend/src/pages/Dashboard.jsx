@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import MetricCard from '../components/MetricCard';
 import HealthGauge from '../components/HealthGauge';
 import ChatAssistant from '../components/ChatAssistant';
+import ServiceLocator from '../components/ServiceLocator';
 import { Droplet, Activity, Thermometer, Waves, AlertTriangle, MapPin, Phone, Wrench, X, Lock, ShieldAlert, Cpu } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
@@ -174,35 +175,12 @@ export default function Dashboard() {
                      <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-rose-300 mb-2">Water Abnormality Detected</h2>
                      <p className="text-red-200/70 mb-8 font-medium">Your water health score is critically low. We recommend immediate servicing of your tank and filtration systems.</p>
 
-                     <h3 className="text-lg font-semibold text-slate-200 mb-5 border-b border-red-500/20 pb-3 flex items-center">
-                        <span className="w-2 h-2 bg-red-500 rounded-full mr-2"></span> Nearby Service Agents
-                     </h3>
-                     <div className="grid grid-cols-1 xl:grid-cols-2 gap-5 mb-8">
-                        <div className="bg-slate-900/60 border border-slate-700/50 p-5 rounded-2xl flex flex-col sm:flex-row justify-between sm:items-center hover:bg-slate-800/80 transition-all duration-300 gap-4 group hover:-translate-y-1 hover:shadow-lg">
-                           <div>
-                              <p className="font-semibold text-slate-200 text-lg group-hover:text-sky-400 transition-colors">AquaPure Solutions</p>
-                              <div className="flex items-center text-sm text-slate-400 mt-1.5 font-medium">
-                                 <MapPin className="w-4 h-4 mr-1.5 text-sky-500" /> 12 Sector - 4, Nagpur (440001)
-                              </div>
-                           </div>
-                           <button className="flex items-center justify-center px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-white rounded-xl transition-colors whitespace-nowrap border border-slate-600 focus:ring-2 focus:ring-sky-500 shadow-sm">
-                              <Phone className="w-4 h-4 mr-2 text-sky-400" /> Contact
-                           </button>
-                        </div>
-                        <div className="bg-slate-900/60 border border-slate-700/50 p-5 rounded-2xl flex flex-col sm:flex-row justify-between sm:items-center hover:bg-slate-800/80 transition-all duration-300 gap-4 group hover:-translate-y-1 hover:shadow-lg">
-                           <div>
-                              <p className="font-semibold text-slate-200 text-lg group-hover:text-sky-400 transition-colors">ClearWater Mechanics</p>
-                              <div className="flex items-center text-sm text-slate-400 mt-1.5 font-medium">
-                                 <MapPin className="w-4 h-4 mr-1.5 text-sky-500" /> 84 Layout, Nagpur (440022)
-                              </div>
-                           </div>
-                           <button className="flex items-center justify-center px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-white rounded-xl transition-colors whitespace-nowrap border border-slate-600 focus:ring-2 focus:ring-sky-500 shadow-sm">
-                              <Phone className="w-4 h-4 mr-2 text-sky-400" /> Contact
-                           </button>
-                        </div>
-                     </div>
+                     <ServiceLocator
+                        issueType={systemState.forensic_report?.includes('Rust') ? 'rust_leak' : systemState.forensic_report?.includes('Chemical') ? 'chemical_toxins' : 'general_maintenance'}
+                        onClose={() => { }}
+                     />
 
-                     <div className="flex justify-start border-t border-red-500/20 pt-6">
+                     <div className="flex justify-start border-t border-red-500/20 pt-6 mt-6">
                         <button
                            onClick={() => setShowComplaintForm(true)}
                            className="flex flex-1 sm:flex-none justify-center items-center px-8 py-3.5 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(220,38,38,0.4)] hover:shadow-[0_0_25px_rgba(220,38,38,0.6)] transform hover:-translate-y-0.5 border border-red-400/30 uppercase tracking-wide text-sm"
