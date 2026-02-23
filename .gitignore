@@ -7,8 +7,6 @@ node_modules/
 .env.development
 .env.test
 .env.production
-.env.example
-
 # Credentials
 firebase-credentials.json
 credentials.md
