@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Depends, HTTPException, Header
 from fastapi.middleware.cors import CORSMiddleware
-from app.routes import device, alerts, reports, chat
+from app.routes import device, alerts, reports, chat, simulation
 from app.config import settings
 from app.services.firebase_service import init_firebase
 
@@ -32,6 +32,7 @@ async def startup_event():
 
 # Include Routers (Secured with API Key for demonstration)
 app.include_router(device.router, dependencies=[Depends(verify_api_key)])
+app.include_router(simulation.router, dependencies=[Depends(verify_api_key)])
 app.include_router(alerts.router, dependencies=[Depends(verify_api_key)])
 app.include_router(reports.router, dependencies=[Depends(verify_api_key)])
 app.include_router(chat.router, dependencies=[Depends(verify_api_key)])

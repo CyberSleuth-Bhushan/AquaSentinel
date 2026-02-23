@@ -114,3 +114,27 @@ class AILogic:
             return "Predicted deterioration in 6-12 hours due to stagnation, warming, and increasing turbidity."
         
         return "Stagnation elevated but metrics are currently stable."
+
+    @staticmethod
+    def generate_forensic_report(data: SensorData, reasons: str) -> str:
+        """
+        Uses Gemini 2.5 Flash to automatically analyze severe anomalies and predict the context of a Hackathon Threat.
+        """
+        try:
+            import google.generativeai as genai
+            from app.config import settings
+            genai.configure(api_key=settings.GEMINI_API_KEY)
+            model = genai.GenerativeModel("gemini-2.5-flash")
+            
+            prompt = f"""
+            You are BlueVector's AI Water Forensic Analyst. A critical water anomaly has been detected and the main valve is QUARANTINED.
+            Sensor Data: pH={data.pH}, Turbidity={data.turbidity} NTU, TDS={data.tds} ppm, Temp={data.temperature}C.
+            Trigger Reasons: {reasons}
+            
+            Write a 2-sentence highly professional, urgent "Forensic Threat Report". 
+            Identify the most probable real-world cause (e.g. rusting pipes, heavy metal leach, industrial runoff, chemical bleach, bacterial bloom) based on these exact metrics. Do not suggest calling a plumber, keep it analytic and sound like an advanced AI system. Format as raw text.
+            """
+            response = model.generate_content(prompt)
+            return response.text.strip()
+        except Exception as e:
+            return f"Forensic AI analysis unavailable: API Error. Please inspect physical infrastructure immediately."

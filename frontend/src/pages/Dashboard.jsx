@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import MetricCard from '../components/MetricCard';
 import HealthGauge from '../components/HealthGauge';
 import ChatAssistant from '../components/ChatAssistant';
-import { Droplet, Activity, Thermometer, Waves, AlertTriangle, MapPin, Phone, Wrench, X } from 'lucide-react';
+import { Droplet, Activity, Thermometer, Waves, AlertTriangle, MapPin, Phone, Wrench, X, Lock, ShieldAlert, Cpu } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 export default function Dashboard() {
@@ -12,6 +12,40 @@ export default function Dashboard() {
    const [history, setHistory] = useState([]);
    const [showComplaintForm, setShowComplaintForm] = useState(false);
    const [complaintSubmitted, setComplaintSubmitted] = useState(false);
+   const [systemState, setSystemState] = useState({ valve: 'OPEN', forensic_report: null });
+   const [simulating, setSimulating] = useState(false);
+
+   const handleSimulation = async (scenario) => {
+      setSimulating(true);
+      setTimeout(() => {
+         if (scenario === 'rust') {
+            setData({
+               score: 28, status: 'Unsafe',
+               metrics: { pH: 6.2, turbidity: 78.5, tds: 750, temperature: 23.5, flow_rate: 2.0 }
+            });
+            setSystemState({
+               valve: 'QUARANTINED',
+               forensic_report: "FORENSIC ANALYSIS: Sensor signature heavily correlates with sudden-onset pipe oxidization and heavy metal leach (Rust). Massive turbidity spike (78.5 NTU) combined with lowered pH (6.2) strongly suggests municipal supply line failure or localized infrastructure degradation. Quarantine active to prevent household contamination."
+            });
+         } else if (scenario === 'chemical') {
+            setData({
+               score: 12, status: 'Unsafe',
+               metrics: { pH: 3.8, turbidity: 3.0, tds: 1450, temperature: 26.0, flow_rate: 6.0 }
+            });
+            setSystemState({
+               valve: 'QUARANTINED',
+               forensic_report: "FORENSIC ANALYSIS: Extreme acidic pH drop (3.8) alongside massive TDS surge (1450 ppm) precisely matches the signature of an industrial chemical contaminant or bleach leach. Automatic quarantine engaged instantly to prevent toxic exposure."
+            });
+         } else {
+            setData({
+               score: 95, status: 'Safe',
+               metrics: { pH: 7.2, turbidity: 0.3, tds: 210, temperature: 21.0, flow_rate: 12.0 }
+            });
+            setSystemState({ valve: 'OPEN', forensic_report: null });
+         }
+         setSimulating(false);
+      }, 500);
+   };
 
    // Mock Data Fetching (Replace with Firebase/Backend)
    useEffect(() => {
@@ -44,16 +78,46 @@ export default function Dashboard() {
 
    return (
       <div className="space-y-6 animate-in fade-in duration-500">
-         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-10 gap-4">
+         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-6 gap-4">
             <div>
                <h1 className="text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400 mb-2 tracking-tight">Overview Dashboard</h1>
                <p className="text-slate-400 font-medium">Welcome back, monitoring your water systems in real-time.</p>
             </div>
-            <div className="text-sm px-4 py-2 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-xl flex items-center space-x-2 backdrop-blur-sm shadow-[0_0_15px_rgba(16,185,129,0.15)]">
-               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)] animate-pulse"></span>
-               <span className="font-semibold tracking-wide uppercase text-xs">System Online</span>
+
+            {/* Hackathon Sandbox Panel */}
+            <div className="bg-slate-900/60 border border-slate-700/50 p-2 rounded-xl backdrop-blur-md shadow-lg flex flex-col items-end w-full sm:w-auto">
+               <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2 mr-1 flex items-center"><Cpu className="w-3 h-3 mr-1" /> Threat Simulation Sandbox</span>
+               <div className="flex flex-wrap gap-2 justify-end w-full">
+                  <button onClick={() => handleSimulation('rust')} disabled={simulating} className="px-3 py-1.5 bg-amber-500/20 text-amber-500 border border-amber-500/50 rounded-lg hover:bg-amber-500/30 text-xs font-bold transition-all hover:scale-105 active:scale-95 shadow-[0_0_10px_rgba(245,158,11,0.2)] disabled:opacity-50">INJECT: PIPE RUST</button>
+                  <button onClick={() => handleSimulation('chemical')} disabled={simulating} className="px-3 py-1.5 bg-purple-500/20 text-purple-400 border border-purple-500/50 rounded-lg hover:bg-purple-500/30 text-xs font-bold transition-all hover:scale-105 active:scale-95 shadow-[0_0_10px_rgba(168,85,247,0.2)] disabled:opacity-50">INJECT: CHEMICAL LEAK</button>
+                  <button onClick={() => handleSimulation('reset')} disabled={simulating} className="px-3 py-1.5 bg-emerald-500/20 text-emerald-400 border border-emerald-500/50 rounded-lg hover:bg-emerald-500/30 text-xs font-bold transition-all hover:scale-105 active:scale-95 shadow-[0_0_10px_rgba(16,185,129,0.2)] disabled:opacity-50">SYSTEM RESET</button>
+               </div>
             </div>
          </div>
+
+         {/* Quarantine Visualizer Banner */}
+         {systemState.valve === 'QUARANTINED' && (
+            <div className="bg-red-950/80 border-2 border-red-500 animate-pulse rounded-2xl p-6 shadow-[0_0_50px_rgba(239,68,68,0.4)] relative overflow-hidden flex flex-col md:flex-row items-center justify-between z-20 backdrop-blur-3xl">
+               <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/diagonal-striped-brick.png')] opacity-10 mix-blend-overlay"></div>
+               <div className="flex items-center space-x-6 relative z-10 w-full md:w-auto mb-6 md:mb-0">
+                  <div className="bg-red-600 p-4 rounded-full shadow-[0_0_20px_rgba(239,68,68,1)]">
+                     <Lock className="w-10 h-10 text-white" />
+                  </div>
+                  <div>
+                     <h2 className="text-3xl font-black text-white tracking-widest uppercase mb-1 drop-shadow-md">System Quarantined</h2>
+                     <p className="text-red-200 font-medium tracking-wide flex items-center"><ShieldAlert className="w-4 h-4 mr-2" /> Main water valve automatically shut off.</p>
+                  </div>
+               </div>
+
+               {systemState.forensic_report && (
+                  <div className="bg-black/40 border border-red-500/30 p-4 rounded-xl max-w-2xl w-full relative z-10 font-mono text-sm leading-relaxed text-red-300 shadow-inner">
+                     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-600 to-transparent"></div>
+                     <span className="text-white font-bold block mb-2 underline decoration-red-500 underline-offset-4">GEMINI AI FORENSIC REPORT:</span>
+                     <span className="animate-in fade-in slide-in-from-left-4 duration-1000">{systemState.forensic_report}</span>
+                  </div>
+               )}
+            </div>
+         )}
 
          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
             {/* Health Gauge taking up 1 col */}

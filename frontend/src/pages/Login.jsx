@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
-import { Droplet } from 'lucide-react';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -35,8 +34,8 @@ export default function Login() {
             <div className="max-w-md w-full space-y-8 bg-slate-900/40 p-10 rounded-[2rem] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] backdrop-blur-xl border border-white/10 relative z-10 transition-transform hover:scale-[1.01] duration-500">
                 <div>
                     <div className="flex justify-center flex-col items-center">
-                        <div className="bg-gradient-to-br from-sky-400 to-blue-600 p-4 rounded-2xl mb-6 shadow-lg shadow-sky-500/30 transform transition-transform hover:rotate-12 duration-300">
-                            <Droplet className="h-10 w-10 text-white" />
+                        <div className="bg-gradient-to-br from-sky-400 to-blue-600 p-1 rounded-2xl mb-6 shadow-lg shadow-sky-500/30 transform transition-transform hover:rotate-12 duration-300 overflow-hidden w-20 h-20 flex items-center justify-center">
+                            <img src="/logo.jpeg" alt="BlueVector Logo" className="w-full h-full object-cover rounded-[14px]" />
                         </div>
                         <h2 className="text-center text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
                             BlueVector

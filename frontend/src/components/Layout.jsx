@@ -31,8 +31,8 @@ export default function Layout() {
             {/* Sidebar */}
             <aside className="w-64 bg-slate-900/80 backdrop-blur-2xl border-r border-slate-800 flex flex-col transition-all duration-300 relative z-20 shadow-2xl">
                 <div className="p-6 flex items-center space-x-3">
-                    <div className="p-2 bg-gradient-to-br from-sky-400 to-blue-600 rounded-xl shadow-lg shadow-sky-500/20">
-                        <Droplet className="h-6 w-6 text-white" />
+                    <div className="p-0.5 bg-gradient-to-br from-sky-400 to-blue-600 rounded-xl shadow-lg shadow-sky-500/20 w-10 h-10 shrink-0 overflow-hidden">
+                        <img src="/logo.jpeg" alt="BlueVector Logo" className="w-full h-full object-cover rounded-[10px]" />
                     </div>
                     <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400 tracking-tight">
                         BlueVector

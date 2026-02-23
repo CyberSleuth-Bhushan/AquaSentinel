@@ -72,6 +72,21 @@ async def ingest_sensor_data(payload: DevicePayload):
             "timestamp": timestamp
         })
         
+        # Auto-Quarantine & System State Logic
+        system_state_ref = db.reference(f'devices/{device_id}/system_state')
+        current_state = system_state_ref.get() or {"valve": "OPEN", "forensic_report": None}
+        
+        if health_result["score"] < 40 and current_state.get("valve") != "QUARANTINED":
+            # Initiate Lockdown
+            system_state_ref.update({"valve": "QUARANTINED"})
+            # Generate AI Report synchronously (for hackability)
+            report = AILogic.generate_forensic_report(payload.data, health_result["risk_reason"])
+            system_state_ref.update({"forensic_report": report})
+            
+        elif health_result["score"] >= 80 and current_state.get("valve") == "QUARANTINED":
+            # Auto-reset if safe for demo purposes
+            system_state_ref.update({"valve": "OPEN", "forensic_report": None})
+
         if health_result["status"] == "Unsafe":
              send_sms("+11234567890", f"ALERT: Water is UNSAFE. Score {health_result['score']}. {health_result['risk_reason']}")
 
