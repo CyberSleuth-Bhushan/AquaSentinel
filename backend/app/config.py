@@ -7,6 +7,7 @@ class Settings(BaseSettings):
     FIREBASE_CREDENTIALS_PATH: str = "./firebase-credentials.json"
     FIREBASE_DATABASE_URL: str = ""
     API_KEY: str = ""
+    DEEPSEEK_API_KEY: str = ""
 
     class Config:
         env_file = ".env"
