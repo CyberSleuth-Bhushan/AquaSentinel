@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+:root {
+  --primary: #0ea5e9; /* Sky 500 */
+  --primary-dark: #0284c7; /* Sky 600 */
+  --secondary: #64748b; /* Slate 500 */
+  --success: #10b981; /* Emerald 500 */
+  --warning: #f59e0b; /* Amber 500 */
+  --danger: #ef4444; /* Red 500 */
+  
+  --bg-light: #f8fafc; /* Slate 50 */
+  --bg-dark: #0f172a; /* Slate 900 */
+  --card-light: #ffffff;
+  --card-dark: #1e293b; /* Slate 800 */
+  
+  --text-light: #334155; /* Slate 700 */
+  --text-dark: #f1f5f9; /* Slate 100 */
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-light);
+  color: var(--text-light);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: var(--bg-dark);
+    color: var(--text-dark);
+  }
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Custom Scrollbar for better UI */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; 
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1; 
+  border-radius: 4px;
+}
+
+@media (prefers-color-scheme: dark) {
+  ::-webkit-scrollbar-thumb {
+    background: #475569; 
+  }
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8; 
+}

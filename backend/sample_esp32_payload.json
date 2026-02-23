@@ -1,0 +1,10 @@
+{
+  "device_id": "esp32_home_tank_01",
+  "data": {
+    "pH": 7.2,
+    "turbidity": 2.1,
+    "tds": 250,
+    "temperature": 24.5,
+    "flow_rate": 0
+  }
+}
