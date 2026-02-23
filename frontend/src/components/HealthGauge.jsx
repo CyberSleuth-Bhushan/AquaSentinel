@@ -13,37 +13,44 @@ export default function HealthGauge({ score, status }) {
     const strokeDashoffset = circumference - (score / 100) * circumference;
 
     return (
-        <div className="relative flex flex-col items-center justify-center p-8 bg-slate-800 rounded-2xl border border-slate-700 shadow-xl overflow-hidden group">
-            <div className={`absolute inset-0 bg-gradient-to-br ${colors.gradient} opacity-5 group-hover:opacity-10 transition-opacity`}></div>
-            <div className="relative w-48 h-48 flex items-center justify-center">
-                <svg className="w-full h-full transform -rotate-90">
+        <div className="relative flex flex-col items-center justify-center p-8 bg-slate-900/40 backdrop-blur-xl rounded-[2rem] border border-slate-700/50 shadow-[0_8px_32px_0_rgba(31,38,135,0.2)] overflow-hidden group hover:bg-slate-800/50 transition-colors duration-500 w-full">
+            <div className={`absolute inset-0 bg-gradient-to-br ${colors.gradient} opacity-5 group-hover:opacity-10 transition-opacity duration-700 mix-blend-screen`}></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-white opacity-[0.02] rounded-full blur-2xl group-hover:opacity-[0.04] transition-opacity"></div>
+
+            <div className="relative w-52 h-52 flex items-center justify-center transform group-hover:scale-105 transition-transform duration-500">
+                <svg className="w-full h-full transform -rotate-90 drop-shadow-2xl">
                     <circle
-                        cx="96"
-                        cy="96"
+                        cx="104"
+                        cy="104"
                         r={radius}
-                        className="stroke-slate-700"
-                        strokeWidth="12"
+                        className="stroke-slate-800"
+                        strokeWidth="14"
                         fill="transparent"
                     />
                     <circle
-                        cx="96"
-                        cy="96"
+                        cx="104"
+                        cy="104"
                         r={radius}
                         stroke={colors.stroke}
-                        strokeWidth="12"
+                        strokeWidth="14"
                         fill="transparent"
                         strokeDasharray={circumference}
                         strokeDashoffset={strokeDashoffset}
                         strokeLinecap="round"
-                        className="transition-all duration-1000 ease-out"
+                        className="transition-all duration-1500 ease-out drop-shadow-[0_0_8px_currentColor]"
                     />
                 </svg>
                 <div className="absolute flex flex-col items-center justify-center">
-                    <span className="text-5xl font-extrabold text-white tracking-tighter">{score}</span>
-                    <span className="text-sm font-medium text-slate-400 mt-1 uppercase tracking-widest">{status}</span>
+                    <span className="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-br from-white to-slate-300 tracking-tighter drop-shadow-sm">{score}</span>
+                    <span className={`text-xs font-bold mt-1 tracking-[0.2em] uppercase`} style={{ color: colors.stroke }}>
+                        {status}
+                    </span>
                 </div>
             </div>
-            <h2 className="mt-6 text-lg font-semibold text-slate-200">Overall Water Health</h2>
+
+            <div className="mt-8 text-center relative z-10 bg-slate-800/50 px-6 py-2 rounded-xl border border-slate-700/50 backdrop-blur-md">
+                <h2 className="text-sm font-semibold text-slate-300 tracking-wide uppercase">Overall Water Health</h2>
+            </div>
         </div>
     );
 }

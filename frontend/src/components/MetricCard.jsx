@@ -10,12 +10,12 @@ export default function MetricCard({ title, value, unit, icon: Icon, status = 'n
     };
 
     return (
-        <div className={`p-6 rounded-2xl bg-slate-800 border border-slate-700 hover:bg-slate-800/80 transition-all duration-300 relative overflow-hidden group`}>
-            <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${colorClass} opacity-10 rounded-full blur-2xl -mr-10 -mt-10 transition-transform group-hover:scale-110`}></div>
+        <div className={`p-6 rounded-[2rem] bg-slate-900/40 backdrop-blur-xl border border-slate-700/50 hover:bg-slate-800/60 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:border-slate-600/50 transition-all duration-500 relative overflow-hidden group shadow-lg`}>
+            <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${colorClass} opacity-20 rounded-full blur-[40px] -mr-10 -mt-10 transition-all duration-500 group-hover:scale-150 group-hover:opacity-30 mix-blend-screen`}></div>
             <div className="flex items-center justify-between mb-4 relative z-10">
-                <h3 className="text-sm font-medium text-slate-400">{title}</h3>
-                <div className={`p-2 rounded-lg ${getStatusColor()}`}>
-                    <Icon className="h-5 w-5" />
+                <h3 className="text-sm font-semibold tracking-wider text-slate-400 uppercase">{title}</h3>
+                <div className={`p-2.5 rounded-xl backdrop-blur-md shadow-inner ${getStatusColor()} group-hover:scale-110 transition-transform duration-300`}>
+                    <Icon className="h-5 w-5 drop-shadow-md" />
                 </div>
             </div>
             <div className="flex items-end space-x-2 relative z-10">

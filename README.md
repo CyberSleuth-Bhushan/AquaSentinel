@@ -1,6 +1,6 @@
-# AquaGuard - IoT Water Monitoring Platform
+# BlueVector - IoT Water Monitoring Platform
 
-Welcome to the AquaGuard Full-Stack IoT System.
+Welcome to the BlueVector Full-Stack IoT System.
 
 ## Project Structure
 - `/backend`: FastAPI Python server for ingesting IoT data, processing AI rules, and exposing endpoints.

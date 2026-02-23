@@ -44,14 +44,14 @@ export default function Dashboard() {
 
    return (
       <div className="space-y-6 animate-in fade-in duration-500">
-         <div className="flex justify-between items-end mb-8">
+         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-10 gap-4">
             <div>
-               <h1 className="text-3xl font-bold text-white mb-1">Overview Dashboard</h1>
-               <p className="text-slate-400">Welcome back, monitoring your water systems in real-time.</p>
+               <h1 className="text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400 mb-2 tracking-tight">Overview Dashboard</h1>
+               <p className="text-slate-400 font-medium">Welcome back, monitoring your water systems in real-time.</p>
             </div>
-            <div className="text-sm px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full flex items-center space-x-2">
-               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-               <span>System Online</span>
+            <div className="text-sm px-4 py-2 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-xl flex items-center space-x-2 backdrop-blur-sm shadow-[0_0_15px_rgba(16,185,129,0.15)]">
+               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)] animate-pulse"></span>
+               <span className="font-semibold tracking-wide uppercase text-xs">System Online</span>
             </div>
          </div>
 
@@ -100,37 +100,40 @@ export default function Dashboard() {
 
          {/* Service Agents & Action Block - Shows when status is not Safe */}
          {data.status !== 'Safe' && (
-            <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-6 mt-6 animate-in slide-in-from-bottom-2">
-               <div className="flex items-start space-x-4">
-                  <div className="p-3 bg-red-500/20 rounded-xl text-red-500">
-                     <AlertTriangle className="h-8 w-8" />
+            <div className="bg-gradient-to-br from-red-500/10 to-rose-900/10 border border-red-500/30 rounded-[2rem] p-8 mt-8 animate-in slide-in-from-bottom-5 backdrop-blur-xl shadow-[0_8px_32px_rgba(239,68,68,0.15)] relative overflow-hidden">
+               <div className="absolute top-0 right-0 w-64 h-64 bg-red-500/10 rounded-full blur-[80px] -mr-20 -mt-20 pointer-events-none mix-blend-screen"></div>
+               <div className="flex flex-col md:flex-row items-start space-y-6 md:space-y-0 md:space-x-6 relative z-10">
+                  <div className="p-4 bg-red-500/20 rounded-2xl text-red-400 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] border border-red-500/20">
+                     <AlertTriangle className="h-10 w-10 drop-shadow-md animate-pulse" />
                   </div>
-                  <div className="flex-1">
-                     <h2 className="text-xl font-bold text-red-400 mb-2">Water Abnormality Detected</h2>
-                     <p className="text-red-200/80 mb-6">Your water health score is critically low. We recommend immediate servicing of your tank and filtration systems.</p>
+                  <div className="flex-1 w-full">
+                     <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-rose-300 mb-2">Water Abnormality Detected</h2>
+                     <p className="text-red-200/70 mb-8 font-medium">Your water health score is critically low. We recommend immediate servicing of your tank and filtration systems.</p>
 
-                     <h3 className="text-lg font-semibold text-slate-200 mb-4 border-b border-red-500/20 pb-2">Nearby Service Agents</h3>
-                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                        <div className="bg-slate-800/80 border border-slate-700 p-4 rounded-xl flex flex-col sm:flex-row justify-between sm:items-center hover:bg-slate-800 transition-colors gap-4">
+                     <h3 className="text-lg font-semibold text-slate-200 mb-5 border-b border-red-500/20 pb-3 flex items-center">
+                        <span className="w-2 h-2 bg-red-500 rounded-full mr-2"></span> Nearby Service Agents
+                     </h3>
+                     <div className="grid grid-cols-1 xl:grid-cols-2 gap-5 mb-8">
+                        <div className="bg-slate-900/60 border border-slate-700/50 p-5 rounded-2xl flex flex-col sm:flex-row justify-between sm:items-center hover:bg-slate-800/80 transition-all duration-300 gap-4 group hover:-translate-y-1 hover:shadow-lg">
                            <div>
-                              <p className="font-medium text-slate-200 text-lg">AquaPure Solutions</p>
-                              <div className="flex items-center text-sm text-slate-400 mt-1">
-                                 <MapPin className="w-4 h-4 mr-1" /> 12 Sector - 4, Nagpur (440001)
+                              <p className="font-semibold text-slate-200 text-lg group-hover:text-sky-400 transition-colors">AquaPure Solutions</p>
+                              <div className="flex items-center text-sm text-slate-400 mt-1.5 font-medium">
+                                 <MapPin className="w-4 h-4 mr-1.5 text-sky-500" /> 12 Sector - 4, Nagpur (440001)
                               </div>
                            </div>
-                           <button className="flex items-center justify-center px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition-colors whitespace-nowrap">
-                              <Phone className="w-4 h-4 mr-2" /> Contact
+                           <button className="flex items-center justify-center px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-white rounded-xl transition-colors whitespace-nowrap border border-slate-600 focus:ring-2 focus:ring-sky-500 shadow-sm">
+                              <Phone className="w-4 h-4 mr-2 text-sky-400" /> Contact
                            </button>
                         </div>
-                        <div className="bg-slate-800/80 border border-slate-700 p-4 rounded-xl flex flex-col sm:flex-row justify-between sm:items-center hover:bg-slate-800 transition-colors gap-4">
+                        <div className="bg-slate-900/60 border border-slate-700/50 p-5 rounded-2xl flex flex-col sm:flex-row justify-between sm:items-center hover:bg-slate-800/80 transition-all duration-300 gap-4 group hover:-translate-y-1 hover:shadow-lg">
                            <div>
-                              <p className="font-medium text-slate-200 text-lg">ClearWater Mechanics</p>
-                              <div className="flex items-center text-sm text-slate-400 mt-1">
-                                 <MapPin className="w-4 h-4 mr-1" /> 84 Layout, Nagpur (440022)
+                              <p className="font-semibold text-slate-200 text-lg group-hover:text-sky-400 transition-colors">ClearWater Mechanics</p>
+                              <div className="flex items-center text-sm text-slate-400 mt-1.5 font-medium">
+                                 <MapPin className="w-4 h-4 mr-1.5 text-sky-500" /> 84 Layout, Nagpur (440022)
                               </div>
                            </div>
-                           <button className="flex items-center justify-center px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition-colors whitespace-nowrap">
-                              <Phone className="w-4 h-4 mr-2" /> Contact
+                           <button className="flex items-center justify-center px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-white rounded-xl transition-colors whitespace-nowrap border border-slate-600 focus:ring-2 focus:ring-sky-500 shadow-sm">
+                              <Phone className="w-4 h-4 mr-2 text-sky-400" /> Contact
                            </button>
                         </div>
                      </div>
@@ -138,9 +141,9 @@ export default function Dashboard() {
                      <div className="flex justify-start border-t border-red-500/20 pt-6">
                         <button
                            onClick={() => setShowComplaintForm(true)}
-                           className="flex flex-1 sm:flex-none justify-center items-center px-6 py-3 bg-red-600 hover:bg-red-500 text-white font-medium rounded-xl transition-all shadow-lg shadow-red-500/20"
+                           className="flex flex-1 sm:flex-none justify-center items-center px-8 py-3.5 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(220,38,38,0.4)] hover:shadow-[0_0_25px_rgba(220,38,38,0.6)] transform hover:-translate-y-0.5 border border-red-400/30 uppercase tracking-wide text-sm"
                         >
-                           <Wrench className="w-5 h-5 mr-2" /> Report Issue / Request Maintenance
+                           <Wrench className="w-5 h-5 mr-3" /> Report Issue to Grid
                         </button>
                      </div>
                   </div>
@@ -229,39 +232,46 @@ export default function Dashboard() {
          )}
 
          {/* Charting Section */}
-         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
-            <div className="bg-slate-800 border border-slate-700 p-6 rounded-2xl w-full">
-               <h3 className="text-lg font-medium text-slate-200 mb-6">24hr Trend: pH & Turbidity</h3>
-               <div className="h-64 w-full">
+         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+            <div className="bg-slate-900/40 backdrop-blur-xl border border-slate-700/50 p-6 rounded-[2rem] w-full shadow-lg relative overflow-hidden group hover:border-slate-600/50 transition-colors duration-500">
+               <div className="absolute top-0 right-0 w-64 h-64 bg-sky-500/5 rounded-full blur-[60px] pointer-events-none transition-opacity duration-500 group-hover:opacity-100 opacity-50"></div>
+               <h3 className="text-lg font-bold text-slate-200 mb-8 border-b border-white/5 pb-4 tracking-wide flex items-center">
+                  <span className="w-1.5 h-6 bg-sky-400 rounded-sm mr-3"></span>24hr Trend: pH & Turbidity
+               </h3>
+               <div className="h-72 w-full relative z-10">
                   <ResponsiveContainer width="100%" height="100%">
-                     <LineChart data={history} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
-                        <XAxis dataKey="time" stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} />
-                        <YAxis yAxisId="left" stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} />
-                        <YAxis yAxisId="right" orientation="right" stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} />
+                     <LineChart data={history} margin={{ top: 5, right: 20, bottom: 5, left: -20 }}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#334155" opacity={0.5} vertical={false} />
+                        <XAxis dataKey="time" stroke="#64748b" fontSize={11} tickLine={false} axisLine={false} dy={10} />
+                        <YAxis yAxisId="left" stroke="#64748b" fontSize={11} tickLine={false} axisLine={false} dx={-10} />
+                        <YAxis yAxisId="right" orientation="right" stroke="#64748b" fontSize={11} tickLine={false} axisLine={false} dx={10} />
                         <Tooltip
-                           contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '0.5rem' }}
-                           itemStyle={{ color: '#f1f5f9' }}
+                           contentStyle={{ backgroundColor: 'rgba(15, 23, 42, 0.9)', backdropFilter: 'blur(8px)', border: '1px solid rgba(51, 65, 85, 0.5)', borderRadius: '1rem', color: '#f8fafc', boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.5)' }}
+                           itemStyle={{ color: '#f1f5f9', fontWeight: 500 }}
                         />
-                        <Line yAxisId="left" type="monotone" dataKey="ph" stroke="#0ea5e9" strokeWidth={2} dot={false} activeDot={{ r: 6 }} name="pH" />
-                        <Line yAxisId="right" type="monotone" dataKey="turbidity" stroke="#8b5cf6" strokeWidth={2} dot={false} activeDot={{ r: 6 }} name="Turbidity" />
+                        <Line yAxisId="left" type="monotone" dataKey="ph" stroke="#0ea5e9" strokeWidth={3} dot={false} activeDot={{ r: 6, strokeWidth: 0, fill: '#0ea5e9', className: 'drop-shadow-lg' }} name="pH" />
+                        <Line yAxisId="right" type="monotone" dataKey="turbidity" stroke="#8b5cf6" strokeWidth={3} dot={false} activeDot={{ r: 6, strokeWidth: 0, fill: '#8b5cf6', className: 'drop-shadow-lg' }} name="Turbidity" />
                      </LineChart>
                   </ResponsiveContainer>
                </div>
             </div>
 
-            <div className="bg-slate-800 border border-slate-700 p-6 rounded-2xl w-full">
-               <h3 className="text-lg font-medium text-slate-200 mb-6">24hr Trend: TDS Level</h3>
-               <div className="h-64 w-full">
+            <div className="bg-slate-900/40 backdrop-blur-xl border border-slate-700/50 p-6 rounded-[2rem] w-full shadow-lg relative overflow-hidden group hover:border-slate-600/50 transition-colors duration-500">
+               <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-[60px] pointer-events-none transition-opacity duration-500 group-hover:opacity-100 opacity-50"></div>
+               <h3 className="text-lg font-bold text-slate-200 mb-8 border-b border-white/5 pb-4 tracking-wide flex items-center">
+                  <span className="w-1.5 h-6 bg-emerald-400 rounded-sm mr-3"></span>24hr Trend: TDS Level
+               </h3>
+               <div className="h-72 w-full relative z-10">
                   <ResponsiveContainer width="100%" height="100%">
-                     <LineChart data={history} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
-                        <XAxis dataKey="time" stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} />
-                        <YAxis stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} />
+                     <LineChart data={history} margin={{ top: 5, right: 20, bottom: 5, left: -20 }}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#334155" opacity={0.5} vertical={false} />
+                        <XAxis dataKey="time" stroke="#64748b" fontSize={11} tickLine={false} axisLine={false} dy={10} />
+                        <YAxis stroke="#64748b" fontSize={11} tickLine={false} axisLine={false} dx={-10} />
                         <Tooltip
-                           contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '0.5rem' }}
+                           contentStyle={{ backgroundColor: 'rgba(15, 23, 42, 0.9)', backdropFilter: 'blur(8px)', border: '1px solid rgba(51, 65, 85, 0.5)', borderRadius: '1rem', color: '#f8fafc', boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.5)' }}
+                           itemStyle={{ color: '#10b981', fontWeight: 500 }}
                         />
-                        <Line type="monotone" dataKey="tds" stroke="#10b981" strokeWidth={2} dot={false} activeDot={{ r: 6 }} name="TDS (ppm)" />
+                        <Line type="monotone" dataKey="tds" stroke="#10b981" strokeWidth={3} dot={false} activeDot={{ r: 6, strokeWidth: 0, fill: '#10b981', className: 'drop-shadow-lg' }} name="TDS (ppm)" />
                      </LineChart>
                   </ResponsiveContainer>
                </div>

@@ -27,55 +27,71 @@ export default function Login() {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-slate-900 py-12 px-4 sm:px-6 lg:px-8 bg-[url('https://images.unsplash.com/photo-1548292857-e92c6cc7ff11?q=80&w=2670&auto=format&fit=crop')] bg-cover bg-center bg-blend-overlay">
-            <div className="max-w-md w-full space-y-8 bg-slate-800/90 p-8 rounded-2xl shadow-2xl backdrop-blur-md border border-slate-700">
+        <div className="min-h-screen flex items-center justify-center bg-slate-950 py-12 px-4 sm:px-6 lg:px-8 bg-[url('https://images.unsplash.com/photo-1548292857-e92c6cc7ff11?q=80&w=2670&auto=format&fit=crop')] bg-cover bg-center bg-blend-overlay relative overflow-hidden">
+            {/* Animated Background Orbs */}
+            <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-sky-500/30 rounded-full mix-blend-screen filter blur-[100px] animate-pulse"></div>
+            <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-blue-600/20 rounded-full mix-blend-screen filter blur-[120px] animate-pulse" style={{ animationDelay: '2s' }}></div>
+
+            <div className="max-w-md w-full space-y-8 bg-slate-900/40 p-10 rounded-[2rem] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] backdrop-blur-xl border border-white/10 relative z-10 transition-transform hover:scale-[1.01] duration-500">
                 <div>
                     <div className="flex justify-center flex-col items-center">
-                        <div className="bg-sky-500/20 p-4 rounded-full mb-4">
-                            <Droplet className="h-12 w-12 text-sky-400" />
+                        <div className="bg-gradient-to-br from-sky-400 to-blue-600 p-4 rounded-2xl mb-6 shadow-lg shadow-sky-500/30 transform transition-transform hover:rotate-12 duration-300">
+                            <Droplet className="h-10 w-10 text-white" />
                         </div>
-                        <h2 className="text-center text-3xl font-extrabold text-white">AquaGuard</h2>
-                        <p className="mt-2 text-center text-sm text-slate-400">
-                            Sign in to your dashboard
+                        <h2 className="text-center text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
+                            BlueVector
+                        </h2>
+                        <p className="mt-3 text-center text-sm text-sky-200/70 font-medium tracking-wide">
+                            Secure your water logic flow
                         </p>
                     </div>
                 </div>
 
-                {error && <div className="bg-red-500/10 border border-red-500/50 text-red-400 px-4 py-3 rounded-lg text-sm">{error}</div>}
+                {error && (
+                    <div className="bg-red-500/10 border border-red-500/30 text-red-400 px-4 py-3 rounded-xl text-sm backdrop-blur-md flex items-center shadow-lg shadow-red-500/10 animate-in fade-in slide-in-from-top-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-red-400 mr-2 animate-pulse"></div>
+                        {error}
+                    </div>
+                )}
 
                 <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-                    <div className="rounded-md shadow-sm space-y-4">
-                        <div>
-                            <label className="block text-sm font-medium text-slate-300 mb-1">Email address</label>
+                    <div className="rounded-xl space-y-5">
+                        <div className="relative group">
+                            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 ml-1 group-focus-within:text-sky-400 transition-colors">Email address</label>
                             <input
                                 type="email"
                                 required
-                                className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-slate-600 bg-slate-700/50 text-white placeholder-slate-400 focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm"
+                                className="appearance-none rounded-xl relative block w-full px-4 py-3 border border-slate-700/50 bg-slate-900/50 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent focus:bg-slate-800/80 transition-all sm:text-sm backdrop-blur-sm shadow-inner"
                                 placeholder="you@example.com"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                             />
                         </div>
-                        <div>
-                            <label className="block text-sm font-medium text-slate-300 mb-1">Password</label>
+                        <div className="relative group">
+                            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 ml-1 group-focus-within:text-sky-400 transition-colors">Password</label>
                             <input
                                 type="password"
                                 required
-                                className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-slate-600 bg-slate-700/50 text-white placeholder-slate-400 focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm"
-                                placeholder="********"
+                                className="appearance-none rounded-xl relative block w-full px-4 py-3 border border-slate-700/50 bg-slate-900/50 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent focus:bg-slate-800/80 transition-all sm:text-sm backdrop-blur-sm shadow-inner"
+                                placeholder="••••••••"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                         </div>
                     </div>
 
-                    <div>
+                    <div className="pt-2">
                         <button
                             disabled={loading}
                             type="submit"
-                            className="group relative w-full flex justify-center py-2.5 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-sky-600 hover:bg-sky-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 focus:ring-offset-slate-900 transition-colors disabled:opacity-50"
+                            className="group relative w-full flex justify-center py-3.5 px-4 border border-transparent text-sm font-bold rounded-xl text-white bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 focus:ring-offset-slate-900 shadow-lg shadow-sky-500/25 transition-all transform hover:-translate-y-0.5 disabled:opacity-50 disabled:hover:translate-y-0"
                         >
-                            Sign In
+                            {loading ? (
+                                <span className="flex items-center">
+                                    <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin mr-2"></div>
+                                    Authenticating...
+                                </span>
+                            ) : "Sign In to Dashboard"}
                         </button>
                     </div>
                 </form>
